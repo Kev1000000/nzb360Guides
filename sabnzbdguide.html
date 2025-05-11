@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SABnzbd Setup Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="https://nzb360.com/guides/imgs/sab2_128.png" alt="SABnzbd" style="width: 100px; height: auto;">
+        
+        <h2>SABnzbd Setup Guide</h2>
+        <p>This guide will walk you through the steps to get nzb360 connected to SABnzbd running on your computer. If you haven't already, download and install <a href="https://sabnzbd.org">SABnzbd</a> on your computer and configure it to connect to your <a href="https://www.reddit.com/r/usenet/wiki/providers">usenet provider</a>.</p>
+        
+        <h3>Step 1: Primary Connection Address</h3>
+        <p>The first step in connecting nzb360 to SABnzbd is filling in your primary connection address into nzb360's SABnzbd settings, shown below.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/sab1.jpg" alt="Primary Connection Address">
+        
+        <p>You can find your primary connection address by looking at the URL in your browser on your PC when SABnzbd is running. Note, you typically don't want to add /sabnzbd to the end unless you have a URL rewrite. If you don't know what that means, leave off /sabnzbd like in the photo above.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/sab2.png" alt="Primary Connection Address">
+        
+        <p>If your URL shows <code>http://127.0.0.1/sabnzbd</code> that is not accurate, as it is referring to your localhost address. You will need to find your private IP address for your computer running SABnzbd. Follow <a href="https://www.lifewire.com/finding-ip-address-817565">this guide</a> to find your <strong>PRIVATE</strong> IP address.</p>
+        
+        <p>The :8080 is the port number SABnzbd is running on. By default, SABnzbd uses port 8080. If you haven't changed it, then :8080 is probably what you'll want to use to start.</p>
+        
+        <p>If you're using a <strong>remote</strong> address (not a local IP address) then you'll want to use that in your Primary Connection Address.</p>
+        
+        <p>Once you've entered in your Primary Connection Address, move on to step 2.</p>
+        
+        <hr>
+        
+        <h3>Step 2: Adding your API key</h3>
+        <p>An API key is a unique/random key that is given to you by SABnzbd that acts as a password to allow apps like nzb360 to communicate securely to it. It must be added to nzb360 exactly as it appears in SABnzbd.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/sab3.png" alt="API Key">
+        
+        <p>To find your specific API key, follow the steps below.</p>
+        <ul>
+            <li>With SABnzbd launched in your browser, click on the gear icon on the top right (SABnzbd config).</li>
+            <li>Click the General Tab.</li>
+            <li>Under security, find the <strong>API Key</strong> field.</li>
+            <li>Copy this key and send it to your mobile device.</li>
+            <li>Paste it in nzb360's SABnzbd API Key field.</li>
+        </ul>
+        
+        <p>While you're in this view, also double check that the very top field (SABnzbd Host) says 0.0.0.0 instead of localhost. If it says localhost, change it to 0.0.0.0, otherwise you won't be able to connect to it.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/sab4.png" alt="SABnzbd Host">
+        
+        <hr>
+        
+        <h3>Step 3: Test your connection</h3>
+        <p>nzb360 allows you to test your connection from the settings screen to see if things will work.</p>
+        
+        <p><strong>Note: Your mobile device MUST be on the same network as SABnzbd (if you're using a local connection, i.e. 192.168.x.x). Make sure your mobile device is on your home wifi.</strong></p>
+        
+        <p>Press the Test Connection button.</p>
+        <img src="https://nzb360.com/guides/imgs/sab5.jpg" alt="Test Connection">
+        
+        <ul>
+            <li>If you get a <span class="button-success">Success</span> you're all set!</li>
+            <li>If you get a <span class="button-failed">Failed to Connect</span> follow the troubleshooting tips below.</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>Troubleshooting</h2>
+        <ul>
+            <li>Make sure your Primary Connection String is correct.</li>
+            <li>Ensure SABnzbd is listening on 0.0.0.0 instead of localhost in SABnzbd's web settings. (Config -> General -> SABnzbd Host)</li>
+            <li>Double check your API key.</li>
+            <li>Make sure no firewall rules are blocking external access.</li>
+            <li>Make sure you're on the same network and are connected via wifi on your mobile device.</li>
+        </ul>
+        
+        <h2>Tips and Tricks</h2>
+        <ul>
+            <li>Did you know you can tap and hold on the Pause button to pause for a certain duration?</li>
+            <li>Did you know you can tap on the Server Info (underneath the 3 dot menu) to quickly access the server info pane?</li>
+            <li>Did you know you can tap on the On Finish label in the Server Info Pane to set the On Finish action?</li>
+        </ul>
+        
+        <h2>Still need help?</h2>
+        <p>You can always reach me directly through the built in Send Feedback feature within the app or at nzb360@gmail.com</p>
+    </div>
+</body>
+</html>

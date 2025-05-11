@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonarr Setup Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="https://nzb360.com/guides/imgs/nzbdrone_icon.png" alt="Sonarr" style="width: 50px; height: auto;">
+        
+        <h2>Sonarr Setup Guide</h2>
+        <p>This guide will walk you through the steps to get nzb360 connected to Sonarr running on your computer. If you haven't already, download and install <a href="https://sonarr.tv">Sonarr</a> on your computer.</p>
+        
+        <h3>Step 1: Primary Connection Address</h3>
+        <p>The first step in connecting nzb360 to Sonarr is filling in your primary connection address into nzb360's Sonarr settings, shown below.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/sonarr1.jpg" alt="Primary Connection Address">
+        
+        <p>You can find your primary connection address by looking at the URL in your browser on your PC when Sonarr is running.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/sonarr2.png" alt="Primary Connection Address">
+        
+        <p>If your URL shows http://localhost:8989 or http://127.0.0.1:8989 that is not accurate, as it is referring to your localhost address. You will need to find your private IP address for your computer running Sonarr. Follow <a href="https://www.lifewire.com/finding-ip-address-817565">this guide</a> to find your <strong>PRIVATE</strong> IP address.</p>
+        
+        <p>The :8989 is the port number Sonarr is running on. By default, Sonarr uses port 8989. If you haven't changed it, then :8989 is probably what you'll want to use to start.</p>
+        
+        <p>If you're using a <strong>remote</strong> address (not a local IP address) then you'll want to use that in your Primary Connection Address.</p>
+        
+        <p>Once you've entered in your Primary Connection Address, move on to step 2.</p>
+        
+        <hr>
+        
+        <h3>Step 2: Adding your API key</h3>
+        <p>An API key is a unique/random key that is given to you by Sonarr that acts as a password to allow apps like nzb360 to communicate securely to it. It must be added to nzb360 exactly as it appears in Sonarr.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/sonarr3.png" alt="API Key">
+        
+        <p>To find your specific API key, follow the steps below.</p>
+        <ul>
+            <li>With Sonarr launched in your browser, click on the Settings tab near the top right.</li>
+            <li>Click the General Tab.</li>
+            <li>Under security, find the <strong>API Key</strong> field.</li>
+            <li>Copy this key and send it to your mobile device.</li>
+            <li>Paste it in nzb360's Sonarr API Key field.</li>
+        </ul>
+        
+        <p>Note, if you have authentication setup, the API Key will bypass it when using nzb360. You do not need to add your username or password for Sonarr to nzb360.</p>
+        
+        <hr>
+        
+        <h3>Step 3: Test your connection</h3>
+        <p>nzb360 allows you to test your connection from the settings screen to see if things will work.</p>
+        
+        <p><strong>Note: Your mobile device MUST be on the same network as Sonarr (if you're using a local connection, i.e. 192.168.x.x). Make sure your mobile device is on your home wifi.</strong></p>
+        
+        <p>Press the Test Connection button.</p>
+        <img src="https://nzb360.com/guides/imgs/sab5.jpg" alt="Test Connection">
+        
+        <ul>
+            <li>If you get a <span class="button-success">Success</span> you're all set!</li>
+            <li>If you get a <span class="button-failed">Failed to Connect</span> follow the troubleshooting tips below.</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>Troubleshooting</h2>
+        <ul>
+            <li>Make sure your Primary Connection String is correct.</li>
+            <li>Double check your API key.</li>
+            <li>Make sure no firewall rules are blocking external access. If on Windows, run Sonarr as Administrator once to auto-add a firewall rule for external connections.</li>
+            <li>Make sure you're on the same network and are connected via wifi on your mobile device.</li>
+            <li>Make sure your Windows PC network is set to a PRIVATE and not a PUBLIC network type.</li>
+            <li>If you're having issues with Quality Profiles or Root Folders not syncing, make sure to add your URL Base field to your primary/local connection strings.</li>
+        </ul>
+        
+        <h2>Still need help?</h2>
+        <p>You can always reach me directly through the built in Send Feedback feature within the app or at nzb360@gmail.com</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Access Guide</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+  <body>
+    <div class="container">
+        <img src="https://nzb360.com/guides/imgs/mixcloud.png" alt="Remote Access Guide" style="width: 70px; height: auto;">
+        
+        <h2>Remote Access Guide</h2>
+        <p>Enabling remote access so you can use nzb360 outside of your home is quite easy and completely free. The following guide covers a few different ways to connect remotely with nzb360.</p>
+        <ul>
+            <li><a href="#tailscale">Tailscale</a> (easiest)</li>
+			<li><a href="#wireguard">Wireguard</a></li>
+			<li><a href="#cloudflare" >Cloudflare Access Tunnel</a></li>
+            <li><a href="#portforward">Port Forwarding</a></li>
+        </ul>
+		
+		<p>This guide was contributed by community members: HermitTheFrog, Blueicing, and Jim Jam.  Come say hi on Discord!
+		<br>
+		
+		<br>
+		
+		<h2 id="tailscale">Tailscale</h2>
+        <p><a href="https://tailscale.com" target="_blank">Tailscale</a> is a free (for personal use) VPN service that makes it easy to access your network remotely. This guide will cover how to set up Tailscale on Windows and your device. A Linux guide will be coming in the future.</p>
+
+        <p>This guide will be assuming that you already have a Windows PC running the *arr apps. It will also not be covering any 'advanced' use cases of Tailscale (like exit nodes).</p>
+        <details>
+          <summary>Expand for the full guide.</summary>
+          <h3>Step 1: Creating an Account</h3>
+          <p>First you'll need to create an account. To do this, head to <a href="https://login.tailscale.com/start">https://login.tailscale.com/start</a> and create an account. After creating your account you'll be redirected to the admin dashboard. If you have never used Tailscale before your dashboard will be blank.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/ts1.webp" alt="Tailscale Admin Dasboard"> -->
+          <img src="./imgs/ts1.webp" style="width:100%;" alt="Tailscale Admin Dashboard">
+
+          <h3>Step 2: Installing Tailscale on Windows.</h3>
+          <p>Next download the Windows client and install it -- <a href="https://tailscale.com/download/windows">https://tailscale.com/download/windows</a>. After installing, you will get a notification about logging in. If a browser page does not automatically pop up, you can double click the Tailscale icon in your taskbar's background services area. Once logged in your device will appear on your admin dashboard.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/ts1.webp" alt="Tailscale Device"> -->
+          <img src="./imgs/ts2.webp" style="width:100%;" alt="Tailscale Device">
+
+          <h3>Step 3: Installing Tailscale on Android.</h3>
+          <p>Now do the same but on your phone or the device running the nzb360 app -- <a href="https://tailscale.com/download/android">https://tailscale.com/download/android</a>. Once signed in, connect to your Tailscale network using the slider in the top left of the app. Once connected you should see your *arr machine in your list of devices as well as it's Tailscale network IP.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/ts3.png" alt="Tailscale Mobile"> -->
+          <img src="./imgs/ts3.png" style="width:100%;" alt="Tailscale Mobile">
+
+          <p>Now that both devices are connected to the Tailscale network we can setup the connection for nzb360. To do this, tap on your profile icon in the Tailscale app and then go to "App split tunneling". Scroll until you find nzb360 and verify it is not checked. If it is, tap to uncheck it so that it gets routed through Tailscale.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/ts4.png" alt="Tailscale Mobile"> -->
+          <img src="./imgs/ts4.png" style="width:100%;" alt="Unchecked nzb360 App">
+
+          <h3>Step 4: Configuring nzb360 to use Tailscale.</h3>
+          <p>With the Tailscale configuration done, open the nzb360 app and edit your first service. In the Primary Connection Address field set the connection URL to "<b>http://username:password@tailscale-machine-ip:port</b>". Sonarr example: http://someuser:somepassword@100.106.8.95:8989. Then fill in your API key and hit the Test Connection button.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/ts5.png" alt="Sonarr Connection Test"> -->
+          <img src="./imgs/ts5.png"  alt="Sonarr Connection Test">
+
+          <p>That's it! You can now connect remotely (outside your home) to your media services. There is more you can do with Tailscale so if your curious check out the <a href="https://tailscale.com/kb">docs!</a></p>
+
+          <p>If you want to disable Tailscale at home you can set up local connection handling in the nzb360 app. This will automatically switch your connection to the local network config when you're on your home network. This makes it so you don't have to re-edit the primary connection info when you disable Tailscale. You can use an app like <a href="https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm&pcampaignid=web_share" target="_blank"></a>Tasker</a> to automatically turn Tailscale on when you leave your home or off when you return if you fancy some automation.</p>
+
+          <h3>Troubleshooting</h2>
+            <ul>
+                <li>If you get a failed to connect error make sure the Tailscale app is running on both your devices and connected to the TS network. You can verify this in 3 different places. The Windows desktop tray icon > network devices, the mobile app (if connected it will show all devices), and finally the Tailscale admin dashboard.</li>
+                <li>Ensure your *arr services are running, and you can connect to them locally (on the same network).</li>
+            </ul>
+        </details>
+
+        <br>
+
+        <h2 id="wireguard">Wireguard</h2>
+        <p><a href="https://www.wireguard.com/" target="_blank">WireGuard</a>® is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography. This guide will cover how to setup Wireguard on Windows and your device. A Linux guide will be coming in the future.</p>
+
+        <p>This guide will be assuming that you already have a Windows PC running the *arr apps with a DHCP reserved IP. It will also not be covering any 'advanced' use cases of Wireguard.</p>
+
+        <details>
+          <summary>Expand for the full guide.</summary>
+          <h3>Step 1: Setup</h3>
+          <p>Follow the <a href="#portforward">Port Forwarding</a> guide as you will need a dynDNS URL for your Wireguard clients to connect to. Do not forward any ports yet as we will only be forwarding a single port for Wireguard.</p>
+
+          <h3>Step 2: Installing Wireguard on Windows</h3>
+          <p>After getting your dynDNS name setup, install Wireguard on your Desktop PC running the *arr apps. You can get the Windows installer here: <a href="https://www.wireguard.com/install/" target="_blank">https://www.wireguard.com/install/</a>.</p>
+
+          <p>Run the installer and then open the Wireguard client. Once open click on the arrow next to "Add Tunnel" <sup>1</sup> and then click on "Add empty tunnel" <sup>2</sup></p>
+          <!-- <img src="https://nzb360.com/guides/imgs/wg1.webp" alt="Wireguard Add Empty Tunnel"> -->
+          <img src="./imgs/wg1.webp" style="width:100%;" alt="Wireguard Add Empty Tunnel">
+
+          <p>A new window will open allowing you to create a new Wireguard tunnel config. Add the following info to your new tunnel config.</p>
+
+          <pre>Address = 172.100.0.1/24
+ListenPort = 51820 #can be any port you want. Default is 51820
+          </pre>
+
+          <span style="display: inline-flex; align-items: center; margin-bottom: -24px;"><pre>Address = 172.100.0.1/24</pre></span>
+		  <p style="padding-left: 4px;">This is the IP subnet your Wireguard clients will get when connecting to your tunnel.</p>
+          <span style="display: inline-flex; align-items: center;"><pre>ListenPort = 51820</pre></span>
+		  <p style="padding-left: 8px;">This is the Port you need to forward in your router to this machine.</p>
+
+          <p>Name your Tunnel and then click "Save".</p>
+
+          <!-- <img src="https://nzb360.com/guides/imgs/wg2.webp" alt="Wireguard Add Tunnel Config"> -->
+          <img src="./imgs/wg2.webp" style="width:100%;" alt="Wireguard Add Tunnel Config">
+
+          <p>Next up we need to edit the Tunnel config to include our client information. </p>
+          <!-- <img src="https://nzb360.com/guides/imgs/wg3.png" alt="Edit Wireguard Tunnel"> -->
+          <img src="./imgs/wg3.png" style="width:100%;" alt="Edit Wireguard Tunnel">
+
+          <p>In the edit tunnel window, add the following information:</p>
+          <pre>
+[Peer]
+PublicKey = d8qKoRmlIFS0pPVXJopcFwuv36wzoYV4y1KK0/068gg=
+PresharedKey = lZkXyVHFKiFgQ3RvO6W6bZeiTc9IPxhBoSuynf99ZjE=
+AllowedIPs = 172.100.0.2/32
+          </pre>
+
+          <p>To generate the Client keys, run the following command in PowerShell:</p>
+          <pre>
+wg genkey | tee privatekey | wg pubkey > publickey && cat privatekey && cat publickey && wg genpsk
+          </pre>
+
+          <p>You will get 3 outputs like the following:</p>
+
+          <pre>
+0FCM6Obpp5LaKfPaDZvoIVnxhv4s9WiDDtYsjKr9908=  ## Client Private Key
+d8qKoRmlIFS0pPVXJopcFwuv36wzoYV4y1KK0/068gg=  ## Client Public Key
+lZkXyVHFKiFgQ3RvO6W6bZeiTc9IPxhBoSuynf99ZjE=  ## Preshared Key (psk)
+          </pre>
+
+          <p>Your tunnel config should now look like this:</p>
+
+          <pre>
+[Interface]
+PrivateKey = IMFqJvkrNfCP8oVIVG1ROxCcEVi0uUJtb0xDYMAEG3A=
+ListenPort = 51822
+Address = 172.100.0.1/24
+
+[Peer]
+PublicKey = d8qKoRmlIFS0pPVXJopcFwuv36wzoYV4y1KK0/068gg=
+PresharedKey = lZkXyVHFKiFgQ3RvO6W6bZeiTc9IPxhBoSuynf99ZjE=
+AllowedIPs = 172.100.0.2/32
+          </pre>
+
+          <p>Click "Save" to save the changes. Then click "Activate" to activate the tunnel.</p>
+
+          <!-- <img src="https://nzb360.com/guides/imgs/wg4.webp" alt="Activated Wireguard Tunnel"> -->
+          <img src="./imgs/wg4.webp" style="width:100%;" alt="Activated Wireguard Tunnel">
+
+          <h3>Step 3: Client Configuration</h3>
+          <p>Next up is configuring the Wireguard client on your device. You can download the official Wireguard client here: <a href="https://play.google.com/store/apps/details?id=com.wireguard.android&pli=1" target="_blank">https://play.google.com/store/apps/details?id=com.wireguard.android&pli=1</a>.</p>
+
+          <p>Once the app is installed, return to your desktop and create a new text file called "wg_client.conf". Copy and paste the following into the file:</p>
+
+          <pre>
+[Interface]
+Address = 172.100.0.2/32
+PrivateKey = 0FCM6Obpp5LaKfPaDZvoIVnxhv4s9WiDDtYsjKr9908=  ## Client Private Key
+ListenPort = 51820
+DNS = 1.1.1.1
+
+[Peer]
+PublicKey = IAnPb3zDTzrX+JbhEmo2O4fk3Lv3YgddUsfr8bqoQgo= ## Server Public Key
+PreSharedKey = lZkXyVHFKiFgQ3RvO6W6bZeiTc9IPxhBoSuynf99ZjE=  ## Preshared Key (psk)
+AllowedIPs = 172.100.0.0/24
+Endpoint = your-dyndns-url:51820
+          </pre>
+
+          <p>ZIP the file and send it to your phone. You can use something like <a href="https://pairdrop.net/" target="_blank">pairdrop.net</a> to send the file to your phone. Then open the wireguard app and click the + button</p>
+
+          <p>Once there you will see "Import from file or archive", click that, browse to the location of your config file you saved on your phone.</p>
+
+          <!-- <img src="https://nzb360.com/guides/imgs/wg5a.png" alt="Wireguard Add Tunnel from File"> -->
+          <img src="./imgs/wg5a.png" style="width:100%;" alt="Add Tunnel">
+          <!-- <img src="https://nzb360.com/guides/imgs/wg5b.png" alt="Wireguard Add Tunnel from File"> -->
+          <img src="./imgs/wg5b.png" style="width:100%;" alt="Add from File">
+
+          <p>Once the config is imported, you can tap on the name of the Wireguard tunnel, this will bring you to the information view.</p>
+
+          <!-- <img src="https://nzb360.com/guides/imgs/wg6a.png" alt="Wireguard Tunnel Information"> -->
+          <img src="./imgs/wg6a.png" style="width:100%;" alt="Wireguard Tunnel Information">
+
+          <p>Click the pencil in the top right to edit the tunnel.</p>
+
+          <!-- <img src="https://nzb360.com/guides/imgs/wg6b.png" alt="Wireguard Edit Tunnel"> -->
+          <img src="./imgs/wg6b.png" style="width:100%;" alt="Edit Tunnel">
+
+          <p>Tap on All Applications.</p>
+
+          <!-- <img src="https://nzb360.com/guides/imgs/wg6c.png" alt="Wireguard All Applications"> -->
+          <img src="./imgs/wg6c.png" style="width:100%;" alt="All Applications">
+
+          <p>Next tap on the "include only" tab, enable nzb360, and then tap on "Include 1 apps".</p>
+
+          <!-- <img src="https://nzb360.com/guides/imgs/wg6d.png" alt="Wireguard Enable Tunnel"> -->
+          <img src="./imgs/wg6d.png" style="width:100%;" alt="Wireguard Enable Tunnel">
+
+          <p>Save the changes you made using the "Save" button in the top right and return to the main app view. You can now enable the tunnel.</p>
+
+          <h3>Step 4: Configure nzb360</h3>
+          <p>Open the nzb360 app and edit your first service. In the Primary Connection Address field set the connection URL to "<b>http://username:password@172.100.0.1:app-port</b>". Then fill in your API key and hit the Test Connection button.</p>
+          
+          <pre>
+# Example Sonarr Connection URL
+http://someuser:somepassword@172.100.0.1:8989
+          </pre>
+
+          <p>That's it! You can now connect remotely (outside your home) to your media services via your Wireguard tunnel.</p>
+
+          <h3>Troubleshooting</h3>
+		  <p>If you get a failed to connect error verify the following:</p>
+          <ul>
+              <li>Ensure your Wireguard server is running. You can verify this either via the Desktop UI or right-clicking the tray icon.</li>
+              <li>Ensure your Wireguard client is running on your device and connected to the Wireguard server. You can verify this by tapping on the tunnel in the app and at the bottom it will show the latest handshake time. You can also verify it via the Desktop client as the same information is shown under the "Peer" section.</li>
+              <li>Ensure Wireguard "wg.exe" is allowed to connect through the Windows Firewall. You can verify this in the "Windows Defender Firewall and Advanced Security" GUI or by the "Allow a program through Windows Firewall" settings view.</li>
+            <li>Ensure your *arr services are running, and you can connect to them locally (on the same network).</li>
+          </ul>
+        </details>
+        <br>
+		
+		<h2 id="cloudflare">Cloudflare Access</h2>
+        <span class="info">
+          <span class="info-header">
+            <svg  
+              xmlns="http://www.w3.org/2000/svg"  
+              width="24"  
+              height="24"  
+              viewBox="0 0 24 24"  
+              fill="#2744e7"
+              class="icon icon-tabler icons-tabler-filled icon-tabler-alert-circle"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
+            </svg>
+            <strong>Information</strong>
+          </span>
+          <span class="info-body">
+            Using Cloudflare Access requires you to register a domain via Cloudflare's Registrar. Access is free* but your domain is not. Domain prices can vary between $-$$$$.
+          </span>
+        </span>
+
+        <p><a href="https://www.cloudflare.com/zero-trust/products/access/" target="_blank">Cloudflare Access</a> is a service that allows you to securely connect to your services from anywhere using an encrypted tunnel (think VPN). It can also handle user and service based authentication. This guide will cover how to setup the Cloudflare Access tunnel on a Windows host running the *arr apps. It also covers how to setup a user login flow and service login (for nzb360). A Linux guide will be coming in the future.</p>
+        <h3>Prerequisites</h3>
+        <ul>
+          <li>A Cloudflare account. (<a href="https://dash.cloudflare.com/sign-up" target="_blank">Sign up here</a>)</li>
+          <li>A publicly registered domain is required. You can either register one with <a href="https://www.cloudflare.com/products/registrar/" target="_blank">Cloudflare Registrar</a> or an outside service. However DNS records MUST be managed by Cloudflare to use Access.</li>
+          <li>A Windows PC running the *arr apps</li>
+        </ul>
+
+        <details>
+          <summary>Expand for the full guide.</summary>
+          <h3>Step 1: Setup Cloudflare Access</h3>
+          <p>First you'll need to set up Cloudflare Access. To do this, head over to the <a href="https://dash.cloudflare.com/" target="_blank">Cloudflare Dashboard</a> and click on the Zero Trust option.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf1.webp" alt="Cloudflare Zero Trust"> -->
+          <img src="./imgs/cf1.webp" alt="Cloudflare Zero Trust">
+
+          <p>Complete the Zero Trust Onboarding Wizard. When it asks about the type of plan you want to use, select the "Free" plan.</p>
+
+          <h3>Step 2: Create a Tunnel</h3>
+          <p>Now you'll need to create a tunnel. To do this, click on the "Tunnels" option in the left sidebar (under the Networks section) and then click on the "Create Tunnel" button.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf2a.webp" alt="Cloudflare Tunnels"> -->
+          <img src="./imgs/cf1a.png" style="width:100%;" alt="Cloudflare Tunnels">
+
+          <!-- <img src="https://nzb360.com/guides/imgs/cf2b.webp" alt="Cloudflare Create a Tunnel"> -->
+          <img src="./imgs/cf2b.webp" style="width:100%;" alt="Cloudflare Create a Tunnel">
+
+          <p>Select “cloudflared” for an outbound only connection when asked.</p>
+
+          <h3>Step 3: Configure the Tunnel</h3>
+          <p>Give your tunnel a name and then click 'Save tunnel'. Think wisely about the name if you plan to create additional tunnels in the future.</p>
+
+          <p>Choose the installer for your operating system, we are assuming Windows with this tutorial, so click on Windows and then 64-bit</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf3a.webp" alt="Cloudflare Tunnel Client Download"> -->
+          <img src="./imgs/cf3a.webp" style="width:100%;" alt="Cloudflare Tunnel Client Download">
+
+          <p>Download the cloudflared installer, using the GitHub link provided, and then run it. This will install the cloudflared.exe to <code>'C:\Program Files (x86)\cloudflared'</code>.</p>
+          
+          <h3>Step 4: Install cloudflared as a service</h3>
+          <p>Open an administrative command prompt and navigate to the folder you saved the cloudflared.exe file to (<code>cd 'C:\Program Files (x86)\cloudflared'</code>).</p>
+
+          <p>Copy the command from the Cloudflare Zero Trust dashboard and paste it into the command prompt. Hit Enter to run the command. An example command is provided below:</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf4a.webp" alt="Cloudflare Tunnel Command"> -->
+          <img src="./imgs/cf4a.webp" style="width:100%;" alt="Cloudflare Tunnel Command">
+
+          <span class="danger" style="margin-bottom: 16px; margin-top: 16px;">
+            <span class="danger-header">
+              <svg  
+                xmlns="http://www.w3.org/2000/svg"  
+                width="24"  
+                height="24"  
+                viewBox="0 0 24 24"  
+                fill="#e7273a"  
+                class="icon icon-tabler icons-tabler-filled icon-tabler-alert-circle"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
+              </svg>
+              <strong>Danger</strong>
+            </span>
+            <span class="danger-body">
+              The tunnel key is used to authenticate the connection between your cloudflared service and Cloudflare. Do not post this key or share this key in any publicly accessible location!
+            </span>
+          </span>
+
+          <pre>cloudflared.exe service install eyJhIjoiZDNkZGU5NDhlZDEzMWZlMTM0NzRlODVkNWI3OGYwOTEiLCJ0IjoiNWQyYTkwZDYtNjA1My00MDJlLTg5NzUtMzU2MDJkYTViNmQ5IiwicyI6Ik5qaGxZamc1WWpndE5ESXdOeTAwTkRSbUxXSTBNR010TVRVMk56STNNMkU1Tm1VeSJ9</pre>
+
+          <p>You should see something like the following:</p>
+          
+          <pre>
+2025-02-12T17:53:54Z INF Installing cloudflared Windows service
+2025-02-12T17:53:54Z INF cloudflared agent service is installed windowsServiceName=Cloudflared
+2025-02-12T17:53:55Z INF Agent service for cloudflared installed successfully windowsServiceName=Cloudflared
+          </pre>
+          
+          <p>Back on the Cloudflare Zero Trust dashboard you should see your new tunnel listed in the Connectors section after a few seconds. Click 'Next' to continue.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf4b.webp" alt="Cloudflare Tunnel Connected"> -->
+          <img src="./imgs/cf4b.webp" style="width:100%;" alt="Cloudflare Tunnel Connected">
+
+          <h3>Step 5: Creating a Service Token</h3>
+          <p>Next you'll need to create a service token. To do this, click on the "Access > Service auth" option in the left sidebar. Then click Create Service Token.</p>
+          
+          <p>Choose a relevant name for the service token, adjust the expiration duration as needed, and then click Create.</p>
+
+          <!-- <img src="https://nzb360.com/guides/imgs/cf5a.webp" alt="Create Service Token"> -->
+          <img src="./imgs/cf5a.webp" style="width:100%;" alt="Create Service Token">
+
+          <p>After creating the service token, you'll be given two different strings in the 'Service token details' section. Copy both of these strings and save them in a secure location. You will need them to configure nzb360 later.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf5b.webp" alt="Service Token Details"> -->
+          <img src="./imgs/cf5b.webp" style="width:100%;" alt="Service Token Details">
+
+          <h3>Step 6: Configuring Rule Groups</h3>
+          <p>We are going to create two separate groups here. One for accessing your *arr as normal through a standard browser with a login page, and second for accessing the *arr through custom headers/NZB360. We will start with NZB360. To do this, click on the "Access > Rule groups" option in the left sidebar. Then click Add a group.</p>
+
+          <p>Choose a relevant name for the rule group. In the Rules section, add an Include rule for the service token you created in Step 5. Then a Require rule for the country you reside in. Then click Save.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf6a.webp" alt="Service Token Rule Group"> -->
+          <img src="./imgs/cf6a.webp" style="width:100%;" alt="Service Token Rule Group">
+
+          <p>Now we will create a rule group for accessing the *arr apps as normal through a standard browser with a login page. To do this, return to the Rule groups overview and add a new group.</p>
+
+          <p>Choose a relevant name for the rule group. In the Rules section, add an Include (OR) rule for your email address. Then a Require (AND) rule for the country you reside in. Then click Save.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf6b.webp" alt="Standard Browser Rule Group"> -->
+          <img src="./imgs/cf6b.webp" style="width:100%;" alt="Standard Browser Rule Group">
+
+          <h3>Step 7: Creating a Policy</h3>
+          <p>Now we will create a policy for service auth. To do this, click on the "Access > Policies" option in the left sidebar. Then click Add a policy.</p>
+
+          <p>Choose a relevant name for the policy. Under Action select 'Service Auth' and under Session duration select 'no duration, expires immediately'. Then in the Rules section, add an Include rule for the rule group you created in Step 6 for the service token. Then click Save.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf7a.webp" alt="Service Auth Policy"> -->
+          <img src="./imgs/cf7a.webp" style="width:100%;" alt="Service Auth Policy">
+
+          <p>Now we will create a policy for the standard browser rule group. To do this, click on the "Access > Policies" option in the left sidebar. Then click Add a policy.</p>
+
+          <p>Choose a relevant name for the policy. Under Action select 'Standard Browser' and under Session duration select 'no duration, expires immediately'. Then in the Rules section, add an Include rule for the rule group you created in Step 6 for the standard browser. Then click Save.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf7b.webp" alt="Standard Browser Policy"> -->
+          <img src="./imgs/cf7b.webp" style="width:100%;" alt="Standard Browser Policy">
+
+          <h3>Step 8: Creating an Access Application</h3>
+          <p>Now we will create an access application. To do this, click on the "Access > Applications" option in the left sidebar. Click "Select" under the Self-hosted option.</p>
+
+          <p>Choose a relevant name for the application and under Session duration select '24 hours'. Then select the two policies you created in Step 7 in the Access policies section via the 'select existing policies' option.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf8a.webp" alt="Access Application"> -->
+          <img src="./imgs/cf8a.webp" style="width:100%;" alt="Access Application">
+
+          <p>Finally add your public domain to the application. Select the "Add public hostname" option.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf8b.webp" alt="Access Application Public Hostname"> -->
+          <img src="./imgs/cf8b.webp" style="width:100%;" alt="Access Application Public Hostname">
+
+          <p>Then click 'Next' until you see the 'Save' button. Click Save.</p>
+
+          <h3>Step 9a: Configuring Cloudflared for Access</h3>
+          <p>Now that we have Access setup, we need to configure the Tunnel to use it. To do this, click on the "Networks > Tunnels" option in the left sidebar. Then click on the "Configure" (located in the 3 dot menu) button for the tunnel you created in Step 3. Once in the settings, click on Public Hostname and then 'Add a public hostname'. This will be creating the individual routing within the tunnel to specific applications within your own network. Below is a setup for Prowlarr as if it was set up on the same machine as where the tunnel was installed.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf9a.webp" alt="Prowlarr Hostname Example Configuration"> -->
+          <img src="./imgs/cf9a.webp" style="width:100%;" alt="Prowlarr Hostname Example Configuration">
+
+          <p>In this setup Prowlarr is installed on the same machine as the Cloudflare tunnel service. When you are outside your home network and navigate to "search.nzb360tunnel.cloud" it will bring you to the Cloudflare Access login page where you would use your personal email address to log in to tunnel. After logging in you will be redirected to Prowlarr's homepage.</p>
+          <ol class="cf-list">
+            <li><strong>Subdomain:</strong> is the unique part of the address to access each service within your network that you want to point to. It is a completely personal choice as to what to use.</li>
+            <li><strong>Domain:</strong> shall always be the same, unless you are operating multiple domain names and should autopopulate by default.</li>
+            <li><strong>Type:</strong> is the protocol type that the tunnel shall use to contact the internal service. Since *arr services are now completely internal you do not need to enable HTTPS.
+              <span class="info">
+                <span class="info-header">
+                  <svg  
+                    xmlns="http://www.w3.org/2000/svg"  
+                    width="24"  
+                    height="24"  
+                    viewBox="0 0 24 24"  
+                    fill="#2744e7"
+                    class="icon icon-tabler icons-tabler-filled icon-tabler-alert-circle"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
+                  </svg>
+                  <strong>Information</strong>
+                </span>
+                <span class="info-body">
+                  If your application is using HTTPS (with a self-signed or self-issued certificate), you will need to adjust a few settings on the Tunnel configuration so it can be accessed via the tunnel. See the <a href="#https">Using HTTPS locally</a> section for more information.
+                </span>
+              </span>
+            </li>
+            <li><strong>URL:</strong> is the internal network address that would be used to access each service from the computer that is hosting the tunnel. If they are on the same computer "localhost:PORT" will likely be sufficient, but this could also be populated with in a form such as "192.168.0.15:PORT" or a different internal domain name such as "homeserver:PORT"</li>
+          </ol>
+
+          <h3>Step 9b: Add domain mappings for all of your services</h3>
+          <p>Repeat step 9a for all of your services.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf9b.webp" alt="Hostname Example Configuration"> -->
+          <img src="./imgs/cf9b.webp" style="width:100%;" alt="Hostname Example Configuration">
+
+          <h3>Step 10: Configure NZB360 to use Cloudflare Access</h3>
+          <p>Open the app and navigate to the settings page for your first service. First update the Primary Connection Address to the domain name you used in step 9a (dont forget your basic auth username and password if you are using it!). Then tap on Custom Headers (Optional) and add the following headers:</p>
+          <ol class="cf-list">
+            <li>CF-Access-Client-Id: YOUR_CLIENT_ID</li>
+            <li>CF-Access-Client-Secret: YOUR_CLIENT_SECRET</li>
+          </ol>
+          Your Client ID and Secret are the ones you created in Step 5.
+          <!-- <img src="https://nzb360.com/guides/imgs/cf10a.webp" alt="Custom Headers Example"> -->
+          <!-- <img src="https://nzb360.com/guides/imgs/cf10b.webp" alt="Custom Headers Example Client ID"> -->
+          <!-- <img src="https://nzb360.com/guides/imgs/cf10c.webp" alt="Custom Headers Example Client Secret"> -->
+          <img src="./imgs/cf10a.webp" alt="Custom Headers Example">
+          <img src="./imgs/cf10b.webp" alt="Custom Headers Example Client ID">
+          <img src="./imgs/cf10c.webp" alt="Custom Headers Example Client Secret">
+
+          <p>After adding the headers, tap on the Test Connection button to verify the connection.</p>
+          <!-- <img src="https://nzb360.com/guides/imgs/cf10d.webp" alt="Test Connection"> -->
+          <img src="./imgs/cf10d.webp" alt="Test Connection">
+
+          <p>You can repeat this process for each of your services.</p>
+
+          <span class="info">
+            <span class="info-header">
+              <svg  
+                xmlns="http://www.w3.org/2000/svg"  
+                width="24"  
+                height="24"  
+                viewBox="0 0 24 24"  
+                fill="#2744e7"
+                class="icon icon-tabler icons-tabler-filled icon-tabler-alert-circle"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
+              </svg>
+              <strong>Information</strong>
+            </span>
+            <span class="info-body">
+              You do not need to manually add the headers to each service. Simply edit each of their primary connection addresses and then use the copy all headers option to copy them from the first service you set up!
+            </span>
+          </span>
+
+          <h3 id="https">Using HTTPS locally.</h3>
+          <p>If your application is using HTTPS (with a self-signed or self-issued certificate), you will need to adjust a few settings on the Tunnel configuration so it can be accessed via the tunnel. To do this, click on the "Networks > Tunnels" option in the left sidebar. Then click on the "Configure" (located in the 3 dot menu) button for the tunnel you created in Step 3. Once in the settings, click on Public Hostname and edit each service that uses HTTPS locally to use HTTPS as the service connection type. Then click 'Additional application settings' and then in the TLS section set 'Origin Server Name' to the name listed in your certificate and check 'No TLS Verify'.</p>
+
+          <!-- <img src="https://nzb360.com/guides/imgs/cf11a.webp" alt="HTTPS Local Configuration"> -->
+          <img src="./imgs/cfhttps.webp" style="width:100%;" alt="HTTPS Local Configuration">
+
+          <hr>
+        
+          <h3>Troubleshooting</h2>
+          <ul>
+              <li>Verify that the tunnel is running, and you are able to use the URL's to access your services from a browser.</li>
+              <li>Verify your Client ID and Secret are correct, and the headers are named properly.</li>
+              <li>Verify your services are running and reachable locally using the ip:port.</li>
+              <li>Verify your Service connection type is configured correctly for your environment (HTTP vs HTTPS).</li>
+          </ul>
+        </details>
+		
+		<br>
+		
+		<h2 id="portforward">Port Forwarding</h2>
+
+        <span class="danger">
+          <span class="danger-header">
+            <svg  
+              xmlns="http://www.w3.org/2000/svg"  
+              width="24"  
+              height="24"  
+              viewBox="0 0 24 24"  
+              fill="#e7273a"  
+              class="icon icon-tabler icons-tabler-filled icon-tabler-alert-circle"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
+            </svg>
+            <strong>Danger</strong>
+          </span>
+          <span class="danger-body">
+            Forwarding ports through your router can increase your exposer to security risks and make you vulnerable to attacks! Proceed at your own risk!
+          </span>
+        </span>
+
+        <p>Port Forwarding is a quick and easy way to expose services to the internet. The process involves getting a Dynamic DNS Domain, forwarding traffic to your router, and allowing specific ports through your firewall.</p>
+
+        <h3>Step 1: Create Dynamic DNS Address</h3>
+        <p>A dynamic DNS address allows you to have a URL point to your home. Every modem receives an IP address from your ISP, but that IP address may change often. A dynamic dns address allows you to access your home's IP address, even if it changes.</p>
+        
+        <p>There are many services out there they will provide you a dynamic DNS address. Here are a few options...</p>
+        <ul>
+            <li><a href="https://duckdns.org/" target="_blank">DuckDNS</a></li>
+            <li><a href="http://freedns.afraid.org/" target="_blank">Afraid.org</a></li>
+            <li><a href="https://dyndnss.net/eng/" target="_blank">DynDNS</a></li>
+            <li><a href="https://www.noip.com/remote-access" target="_blank">No-IP</a> (what this guide is based on)</li>
+        </ul>
+        
+        <hr>
+        
+        <p>We're going to use No-IP for the sake of this guide, as it is widely supported by routers and has many tutorials online. However, it does require you to click a "renew" email once every 30 days. If you don't want to do this, and want to follow a separate guide, I recommend using DuckDNS over No-IP if your router supports it.</p>
+        
+        <p>To get started, head over to <a href="https://www.noip.com/remote-access">No-IP</a> and sign up for the FREE version of this service.</p>
+        
+        <p>Once you have an account, follow <a href="https://www.noip.com/support/knowledgebase/getting-started-with-no-ip-com/">this No-IP guide</a> to get your dynamic dns address.</p>
+        
+        <h3>Step 2: Add Dynamic DNS info to home router</h3>
+        <p>In order for your dynamic dns address to stay in sync with your IP address given by your ISP, it must be updated. Most modern routers have this functionality built in. For No-IP users, you can use <a href="https://www.noip.com/support/knowledgebase/how-to-configure-ddns-in-router/">this guide</a> for common routers. If your router isn't included in this guide simply Google how to enable Dynamic DNS for your router model and follow the instructions.</p>
+        
+        <hr>
+        
+        <h3>Step 3: Set reserved DHCP Addresses</h3>
+        <p>Most of the time, a router will automatically assign a computer an IP address at random. This creates a problem in the next step, so we want to keep this computer's IP address static. You can do this in your router as well.</p>
+        
+        <p>Simply Google how to reserve an IP address for your router model. You will need your computer's MAC address that is running the usenet/torrent services. Enter in the MAC address and specify which IP address you would like that PC to have (usually 192.168.X.X). Once you enable that in your router, restart your router and your computer.</p>
+        
+        <hr>
+        
+        <h3>Step 4: Forward the correct ports</h3>
+        <p>By now, we have a No-IP URL, and a reserved IP address for the PC running the usenet/torrent services. Now we need some way to talk to the computer when you visit the No-IP address. Port forwarding accomplishes this.</p>
+        
+        <p>Simply Google how to port forward for your specific router model. All you're essentially doing with port forwarding is telling your router to talk to a specific computer when a certain port is reached.</p>
+        
+        <p>For example, SABnzbd's default port is 8080. In your router, you will want to forward port 8080 to the reserved IP address you set up for your computer in Step 3.</p>
+        
+        <p>You can test if this is working by visiting your no-ip address and specifying a port. For example, if you forwarded port 8080 to your computer running SABnzbd correctly, then visiting <code>http://yourcustomdomain.no-ip.org:8080</code> should bring you to your SABnzbd web configuration.</p>
+        
+        <p>You will need to do this for ALL of your different services you're running (Sonarr, Radarr, Sab, NZBget, etc) and their associated ports to the same IP address you set in Step 3 of this guide.</p>
+        
+        <hr>
+        
+        <h3>Step 5: Update your nzb360 Info</h3>
+        <p>Now you will need to update nzb360's connection settings to support both local and remote connections.</p>
+        
+        <p>For brevity purposes, I will use SABnzbd as the example. The same procedure would apply to all services within nzb360.</p>
+        
+        <p>First, we will now want to change the Primary Connection String to use our new Dynamic DNS address created in Step 1 and the forwarded port created in Step 4.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/rag1.jpg" alt="Primary Connection String">
+        
+        <p>Hit the test connection button to verify this new address is working correctly. If you get a success, you can also enable the "Local Connection Handling" option, which will auto switch your connection parameters when you're on your local wifi network or away from home. This is helpful to maintain a super fast connection at home, but then switch to your remote address when away.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/rag2.jpg" alt="Local Connection Handling">
+        
+        <p>Simply enable the option and type in your local connection address (if you already had this filled out in the Primary Connection String, you would put that here now instead).</p>
+        
+        <p>Next, you need to add your home's WiFi network name(s) to nzb360's Local network SSID setting below. If you have more than one network name (MyHome and MyHome-5G for example) then simply comma separate them like so <code>MyHome, MyHome-5G</code>. nzb360 will auto-switch to this local address whenever you're on these Wifi networks.</p>
+        
+        <hr>
+        
+        <h3>Troubleshooting</h2>
+        <ul>
+            <li>The best way to test if nzb360 will work remotely is to simply try the Primary Connection String in your browser. If you can't connect to your service in Chrome (<code>http://yourcustomdomain.noip.me:XXXX</code>) then nzb360 will not work.</li>
+            <li>Ensure your ports are forwarded correctly.</li>
+            <li>Ensure the local IP address your ports are forward to internally is correct (the computer running your services).</li>
+            <li>Make sure no firewall rules are blocking external access for your services.</li>
+        </ul>
+		
+        <h2>Still need help?</h2>
+        <p>You can always reach me directly through the built-in Send Feedback feature within the app or at nzb360@gmail.com</p>
+    </div>
+  </body>
+</html>

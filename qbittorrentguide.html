@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qBittorrent Setup Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="https://nzb360.com/guides/imgs/qbittorrent-logo.png" alt="qbittorrent" style="width: 70px; height: auto;">
+        
+        <h2>qBittorrent Setup Guide</h2>
+        <p>This guide will walk you through the steps to get nzb360 connected to qBittorrent running on your computer. If you haven't already, download and install <a href="https://qbittorrent.org/">qBittorrent</a> on your computer.</p>
+        
+        <h3>Step 1: Choose qBittorrent as your client</h3>
+        <p>nzb360 supports many different Torrent clients. Make sure to choose qBittorrent by tapping the row above primary connection string.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/qbit1.jpg" alt="Primary Connection Address">
+        
+        <hr>
+        
+        <h3>Step 2: Set up Web UI</h3>
+        <p>You must enable the Web UI in qBittorrent to allow nzb360 to connect. Follow the steps below to enable within qBittorrent.</p>
+        <ul>
+            <li>Click on Tools -> Options.</li>
+            <li>Click on the Web UI tab.</li>
+            <li>Make sure "Web User Interface (Remote Control)" is selected.</li>
+            <li>Leave the IP address field as an *.</li>
+            <li>Write down (or remember) the port number. By default, it should be 8082.</li>
+            <li>Add a username/password that you will remember in the authentication section.</li>
+        </ul>
+        
+        <img src="https://nzb360.com/guides/imgs/qbit2.png" alt="Web UI">
+        
+        <hr>
+        
+        <h3>Step 3: Primary Connection Address</h3>
+        <p>Once you've enabled the web UI, you will need to add your primary connection address into nzb360's Torrent's settings, shown below.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/qbit3.jpg" alt="Primary Connection Address">
+        
+        <p>To find your primary connection address, follow <a href="https://www.lifewire.com/finding-ip-address-817565">this guide</a> to find your <strong>PRIVATE/LOCAL</strong> IP address. It will usually look something like <code>http://192.168.X.X</code>.</p>
+        
+        <p>Add your IP address to the primary connection string field, along with the port from the Web UI settings. Add a colon between the IP address and HTTP port.</p>
+        
+        <p>qBittorrent uses port 8082 by default, so your Primary Connection String should look something like <code>http://192.168.X.X:8082</code></p>
+        
+        <p>If you're using a <strong>remote</strong> address (not a local IP address) then you'll want to use that in your Primary Connection Address.</p>
+        
+        <p>Once you've entered in your Primary Connection Address, move on to step 4.</p>
+        
+        <hr>
+        
+        <h3>Step 4: Adding your password</h3>
+        <p>Fill in the same username/password you added into qBittorrent's Web UI settings here.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/qbit4.jpg" alt="API Key">
+        
+        <hr>
+        
+        <h3>Step 5: Test your connection</h3>
+        <p>nzb360 allows you to test your connection from the settings screen to see if things will work.</p>
+        
+        <p><strong>Note: Your mobile device MUST be on the same network as qBittorrent (if you're using a local connection, i.e. 192.168.x.x). Make sure your mobile device is on your home wifi.</strong></p>
+        
+        <p>Press the Test Connection button.</p>
+        <img src="https://nzb360.com/guides/imgs/sab5.jpg" alt="Test Connection">
+        
+        <ul>
+            <li>If you get a <span class="button-success">Success</span> you're all set!</li>
+            <li>If you get a <span class="button-failed">Failed to Connect</span> follow the troubleshooting tips below.</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>Troubleshooting</h2>
+        <ul>
+            <li>Make sure your Primary Connection String is correct.</li>
+            <li>Double check your username/password.</li>
+            <li>Try logging into qBittorrent's Web UI via your browser on your computer by typing in your Primary Connection String exactly. If you can't connect via this method, nzb360 won't work either.</li>
+            <li>Make sure no firewall rules are blocking external access.</li>
+            <li>Make sure you're on the same network and are connected via wifi on your mobile device.</li>
+            <li>Make sure qBittorrent is running on your PC and remote access is enabled.</li>
+        </ul>
+        
+        <h2>Still need help?</h2>
+        <p>You can always reach me directly through the built in Send Feedback feature within the app or at nzb360@gmail.com</p>
+    </div>
+</body>
+</html>

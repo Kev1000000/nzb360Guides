@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZBget Setup Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="https://nzb360.com/guides/imgs/nzbget_logo_large.png" alt="NZBget" style="width: 100px; height: auto;">
+        
+        <h2>NZBget Setup Guide</h2>
+        <p>This guide will walk you through the steps to get nzb360 connected to NZBget running on your computer. If you haven't already, download and install <a href="https://nzbget.net">NZBget</a> on your computer and configure it to connect to your <a href="https://www.reddit.com/r/usenet/wiki/providers">usenet provider</a>.</p>
+        
+        <h3>Step 1: Primary Connection Address</h3>
+        <p>The first step in connecting nzb360 to NZBget is filling in your primary connection address into nzb360's NZBget settings, shown below.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/nzbget1.jpg" alt="Primary Connection Address">
+        
+        <p>You can find your primary connection address by looking at the URL in your browser on your PC when NZBget is running.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/nzbget2.png" alt="Primary Connection Address">
+        
+        <p>If your URL shows http://127.0.0.1:6789 or http://localhost:6789 that is not accurate, as it is referring to your localhost address. You will need to find your private IP address for your computer running NZBget. Follow <a href="https://www.lifewire.com/finding-ip-address-817565">this guide</a> to find your <strong>PRIVATE</strong> IP address.</p>
+        
+        <p>The :6789 is the port number NZBget is running on. By default, NZBget uses port 6789. If you haven't changed it, then :6789 is probably what you'll want to use to start.</p>
+        
+        <p>If you're using a <strong>remote</strong> address (not a local IP address) then you'll want to use that in your Primary Connection Address.</p>
+        
+        <p>Once you've entered in your Primary Connection Address, move on to step 2.</p>
+        
+        <hr>
+        
+        <h3>Step 2: Adding your User/Password</h3>
+        <p>NZBget is secured via a username and password, which you must enter into nzb360 to connect to NZBget. You can find your username and password by launching NZBget and clicking on Settings -> Security.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/nzbget3.png" alt="User/Pass">
+        
+        <p>Look for <em>ControlUsername</em> and <em>ControlPassword</em>. Type those two values into nzb360's NZBget Username and Password fields (shown below).</p>
+        
+        <img src="https://nzb360.com/guides/imgs/nzbget4.jpg" alt="User/Pass">
+        
+        <hr>
+        
+        <h3>Step 3: Test your connection</h3>
+        <p>nzb360 allows you to test your connection from the settings screen to see if things will work.</p>
+        
+        <p><strong>Note: Your mobile device MUST be on the same network as NZBget (if you're using a local connection, i.e. 192.168.x.x). Make sure your mobile device is on your home wifi.</strong></p>
+        
+        <p>Press the Test Connection button.</p>
+        <img src="https://nzb360.com/guides/imgs/sab5.jpg" alt="Test Connection">
+        
+        <ul>
+            <li>If you get a <span class="button-success">Success</span> you're all set!</li>
+            <li>If you get a <span class="button-failed">Failed to Connect</span> follow the troubleshooting tips below.</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>Troubleshooting</h2>
+        <ul>
+            <li>Make sure your Primary Connection String is correct.</li>
+            <li>Double check your username and password.</li>
+            <li>Make sure no firewall rules are blocking external access.</li>
+            <li>Make sure you're on the same network and are connected via wifi on your mobile device.</li>
+        </ul>
+        
+        <h2>Tips and Tricks</h2>
+        <ul>
+            <li>Did you know you can tap and hold on the Pause button to individually pause NZBget's services?</li>
+            <li>Did you know you can tap on the Server Info (underneath the 3 dot menu) to quickly access the server info pane?</li>
+        </ul>
+        
+        <h2>Still need help?</h2>
+        <p>You can always reach me directly through the built in Send Feedback feature within the app or at nzb360@gmail.com</p>
+    </div>
+</body>
+</html>

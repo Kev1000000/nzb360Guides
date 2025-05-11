@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deluge Setup Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="https://nzb360.com/guides/imgs/deluge_icon.png" alt="Deluge" style="width: 70px; height: auto;">
+        
+        <h2>Deluge Setup Guide</h2>
+        <p>This guide will walk you through the steps to get nzb360 connected to Deluge running on your computer. If you haven't already, download and install <a href="https://deluge-torrent.org/">Deluge</a> on your computer.</p>
+        
+        <h3>Step 1: Choose Deluge as your client</h3>
+        <p>nzb360 supports many different Torrent clients. Make sure to choose Deluge by tapping the row above primary connection string.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/deluge1.jpg" alt="Primary Connection Address">
+        
+        <hr>
+        
+        <h3>Step 2: Set up Web UI in Deluge</h3>
+        <p>nzb360 connects to Deluge's WebUI plugin. You will need to make sure this is downloaded/enabled within your Deluge instance. To verify, follow these steps...</p>
+        <ul>
+            <li>Click on the Deluge's settings icon (the wrench/screwdriver)</li>
+            <li>Click on the last tab (WebUI)</li>
+            <li>Make sure "Enable web interface" is selected</li>
+        </ul>
+        
+        <img src="https://nzb360.com/guides/imgs/deluge2.png" alt="Web UI">
+        
+        <p>Note: Keep an eye on the listening port in this view. You'll need it in the next step.</p>
+        
+        <hr>
+        
+        <h3>Step 3: Primary Connection Address</h3>
+        <p>Once you've enabled the WebUI, you will need to add your primary connection address into nzb360's Torrent's settings, shown below.</p>
+        
+        <img src="https://nzb360.com/guides/imgs/torrent3.jpg" alt="Primary Connection Address">
+        
+        <p>To find your primary connection address, follow <a href="https://www.lifewire.com/finding-ip-address-817565">this guide</a> to find your <strong>PRIVATE/LOCAL</strong> IP address. It will usually look something like http://192.168.X.X.</p>
+        
+        <p>Add your IP address to the primary connection string field, along with the listening port from the WebUI settings. Add a colon between the IP address and listening port.</p>
+        
+        <p>Deluge uses port 8112 by default, so your Primary Connection String should look something like http://192.168.X.X:8112</p>
+        
+        <p>If you're using a <strong>remote</strong> address (not a local IP address) then you'll want to use that in your Primary Connection Address.</p>
+        
+        <p>Once you've entered in your Primary Connection Address, move on to step 4.</p>
+        
+        <hr>
+        
+        <h3>Step 4: Adding your password</h3>
+        <p>Deluge uses a password (with no username) to allow connections like nzb360. The default password for Deluge is simply <code>deluge</code></p>
+        
+        <img src="https://nzb360.com/guides/imgs/deluge3.jpg" alt="API Key">
+        
+        <p>If you'd prefer to change the password, you can by visiting your primary connection string on your computer in your web browser. Once you're logged in, follow these steps...</p>
+        <ul>
+            <li>Click on Preferences.</li>
+            <li>Select the Interface category.</li>
+            <li>Fill out the fields under Password.</li>
+            <li>Click Change button.</li>
+            <li>Enter this new password into nzb360.</li>
+        </ul>
+        
+        <hr>
+        
+        <h3>Step 5: Test your connection</h3>
+        <p>nzb360 allows you to test your connection from the settings screen to see if things will work.</p>
+        
+        <p><strong>Note: Your mobile device MUST be on the same network as Deluge (if you're using a local connection, i.e. 192.168.x.x). Make sure your mobile device is on your home wifi.</strong></p>
+        
+        <p>Press the Test Connection button.</p>
+        <img src="https://nzb360.com/guides/imgs/sab5.jpg" alt="Test Connection">
+        
+        <ul>
+            <li>If you get a <span class="button-success">Success</span> you're all set!</li>
+            <li>If you get a <span class="button-failed">Failed to Connect</span> follow the troubleshooting tips below.</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>Troubleshooting</h2>
+        <ul>
+            <li>Make sure your Primary Connection String is correct.</li>
+            <li>Double check your password.</li>
+            <li>Try logging into Deluge's Web UI via your browser on your computer by typing in your Primary Connection String exactly. If you can't connect via this method, nzb360 won't work either.</li>
+            <li>Make sure no firewall rules are blocking external access.</li>
+            <li>Make sure you're on the same network and are connected via wifi on your mobile device.</li>
+            <li>Make sure Deluge is running on your PC and the WebUI is enabled.</li>
+        </ul>
+        
+        <h2>Still need help?</h2>
+        <p>You can always reach me directly through the built in Send Feedback feature within the app or at nzb360@gmail.com</p>
+    </div>
+</body>
+</html>

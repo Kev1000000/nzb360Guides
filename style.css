@@ -1,0 +1,163 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  background-color: #1e1e24;
+  color: #e0e0e0;
+}
+
+.container {
+  width: 88%;
+  margin: auto;
+  overflow: hidden;
+  padding: 20px;
+  background: #1e1e24;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+img {
+  width: 60%;
+  max-width: 800px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: 8px;
+}
+
+
+h2 {
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+h3 {
+  margin-top: 40px;
+  color: #ffffff;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  background: #292b33;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-left: 4px solid #4caf50;
+}
+
+ul li h4 {
+  margin: 0;
+  color: #ffffff;
+}
+
+a {
+  color: #1e88e5;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  margin-bottom: 20px;
+  color: #e0e0e0;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #4caf50;
+  margin: 40px 0;
+}
+
+pre {
+    margin: 0; /* Adjust as needed */
+	padding: 0;
+	text-indent: 0;
+}
+
+.button-success {
+  display: inline-block;
+  background-color: #4caf50;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.button-failed {
+  display: inline-block;
+  background-color: #f44336;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.danger {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #292b33;
+  color: white;
+  border-left: 4px solid #e7273a;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-family: sans-serif;
+}
+
+.info {
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #292b33;
+  color: white;
+  border-left: 4px solid #2744e7;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-family: sans-serif;
+}
+
+.danger-header, .info-header {
+  display: flex;
+  align-items: center !important;
+  padding-bottom: 4px;
+}
+
+.danger-header .icon, .info-header .icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.cf-list {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+@media (max-width: 768px) {
+  img {
+    width: 80%;
+  }
+}
+
+@media (max-width: 960px) {
+  img {
+    width: 60%;
+  }
+}
+
+
+

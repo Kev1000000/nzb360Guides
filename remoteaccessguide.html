@@ -15,7 +15,7 @@
         <ul>
             <li><a href="#tailscale">Tailscale</a> (easiest)</li>
 			<li><a href="#wireguard">Wireguard</a></li>
-			<li><a href="#cloudflare" >Cloudflare Access Tunnel</a></li>
+			<li><a href="#cloudflare" >Cloudflare Access (Tunnel)</a></li>
             <li><a href="#portforward">Port Forwarding</a></li>
         </ul>
 		
@@ -50,7 +50,7 @@
           <img src="./imgs/ts4.png" style="width:100%;" alt="Unchecked nzb360 App">
 
           <h3>Step 4: Configuring nzb360 to use Tailscale.</h3>
-          <p>With the Tailscale configuration done, open the nzb360 app and edit your first service. In the Primary Connection Address field set the connection URL to "<b>http://username:password@tailscale-machine-ip:port</b>". Sonarr example: http://someuser:somepassword@100.106.8.95:8989. Then fill in your API key and hit the Test Connection button.</p>
+          <p>With the Tailscale configuration done, open the nzb360 app and edit your first service. In the Primary Connection Address field set the connection URL to "<b>http://tailscale-machine-ip:port</b>". Sonarr example: http://100.106.8.95:8989. Then fill in your API key and hit the Test Connection button.</p>
           <!-- <img src="https://nzb360.com/guides/imgs/ts5.png" alt="Sonarr Connection Test"> -->
           <img src="./imgs/ts5.png"  alt="Sonarr Connection Test">
 
@@ -62,6 +62,7 @@
             <ul>
                 <li>If you get a failed to connect error make sure the Tailscale app is running on both your devices and connected to the TS network. You can verify this in 3 different places. The Windows desktop tray icon > network devices, the mobile app (if connected it will show all devices), and finally the Tailscale admin dashboard.</li>
                 <li>Ensure your *arr services are running, and you can connect to them locally (on the same network).</li>
+                <li>If Tailscale is not running on the same device as your apps you will need to set it up as an exit node/give local network access. This guide currently does not cover that.</li>
             </ul>
         </details>
 
@@ -71,6 +72,26 @@
         <p><a href="https://www.wireguard.com/" target="_blank">WireGuard</a>® is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography. This guide will cover how to setup Wireguard on Windows and your device. A Linux guide will be coming in the future.</p>
 
         <p>This guide will be assuming that you already have a Windows PC running the *arr apps with a DHCP reserved IP. It will also not be covering any 'advanced' use cases of Wireguard.</p>
+
+        <span class="danger">
+          <span class="danger-header">
+            <svg  
+              xmlns="http://www.w3.org/2000/svg"  
+              width="24"  
+              height="24"  
+              viewBox="0 0 24 24"  
+              fill="#e7273a"  
+              class="icon icon-tabler icons-tabler-filled icon-tabler-alert-circle"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
+            </svg>
+            <strong>Danger</strong>
+          </span>
+          <span class="danger-body">
+            Forwarding ports through your router can increase your exposer to security risks and make you vulnerable to attacks! Wireguard is generally safe to forward ports for, but be sure to do your research before proceeding. If you are not comfortable with this, consider using Tailscale or Cloudflare Access instead.
+          </span>
+        </span>
 
         <details>
           <summary>Expand for the full guide.</summary>
@@ -195,11 +216,11 @@ Endpoint = your-dyndns-url:51820
           <p>Save the changes you made using the "Save" button in the top right and return to the main app view. You can now enable the tunnel.</p>
 
           <h3>Step 4: Configure nzb360</h3>
-          <p>Open the nzb360 app and edit your first service. In the Primary Connection Address field set the connection URL to "<b>http://username:password@172.100.0.1:app-port</b>". Then fill in your API key and hit the Test Connection button.</p>
+          <p>Open the nzb360 app and edit your first service. In the Primary Connection Address field set the connection URL to "<b>http://172.100.0.1:app-port</b>". Then fill in your API key and hit the Test Connection button.</p>
           
           <pre>
 # Example Sonarr Connection URL
-http://someuser:somepassword@172.100.0.1:8989
+http://172.100.0.1:8989
           </pre>
 
           <p>That's it! You can now connect remotely (outside your home) to your media services via your Wireguard tunnel.</p>
@@ -232,7 +253,7 @@ http://someuser:somepassword@172.100.0.1:8989
             <strong>Information</strong>
           </span>
           <span class="info-body">
-            Using Cloudflare Access requires you to register a domain via Cloudflare's Registrar. Access is free* but your domain is not. Domain prices can vary between $-$$$$.
+            Using Cloudflare Access requires you to have your domain managed by Cloudflare DNS services. Cloudflare Access is free* but your domain is not. Domains can range from $-$$$$
           </span>
         </span>
 
@@ -479,7 +500,7 @@ http://someuser:somepassword@172.100.0.1:8989
             <strong>Danger</strong>
           </span>
           <span class="danger-body">
-            Forwarding ports through your router can increase your exposer to security risks and make you vulnerable to attacks! Proceed at your own risk!
+            Forwarding ports through your router can increase your exposer to security risks and make you vulnerable to attacks! Proceed at your own risk! If you are not comfortable with this, consider using Tailscale or Cloudflare Access instead.
           </span>
         </span>
 
